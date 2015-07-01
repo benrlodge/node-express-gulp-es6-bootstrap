@@ -35,11 +35,13 @@ html.no-js
       h4 Where things are:
       ul
         li
-          | In ./src/js you'll find one folder for client-side scripts that compiles es6 scripts into
-          | the ./public/js directory
+          | Client-side scripts are located in ./src/js/client. ES6 Scripts will 
+          | compile and save in the ./public/js directory
         li
-          | and another folder in ./src/js for server-side scripts that compiles es6 script
-          | into the ./app/scripts folder
+          | Server-side scripts are located in ./src/js/server. ES6 scripts will
+          | compile and save in the ./app/scripts folder
+        li
+          | Require.js is setup and ready to find files located in ./src/client/app directory
       br
       h4 Get started
       div
