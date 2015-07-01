@@ -36,10 +36,19 @@ gulp.task('clientscripts', function () {
 });
 
 gulp.task('copy', function() {
-   gulp.src('./node_modules/font-awesome/fonts/**/*.{ttf,woff,eof,svg}').pipe(gulp.dest('./public/css/fonts'));
+  gulp.src('./node_modules/font-awesome/fonts/**/*.{ttf,woff,eof,svg}')
+    .pipe(gulp.dest('./public/css/fonts'));
+  gulp.src('./node_modules/requirejs/require.js')
+    .pipe(gulp.dest('./public/js/vendor'));
+  gulp.src('./node_modules/underscore/underscore.js')
+    .pipe(gulp.dest('./public/js/vendor'));
+  gulp.src('./node_modules/jquery/dist/jquery.js')
+    .pipe(gulp.dest('./public/js/vendor'));
+  gulp.src('./node_modules/backbone/backbone.js')
+    .pipe(gulp.dest('./public/js/vendor'));
+   
+   
 });
-
-
 
 gulp.task('kill-gulp', function() {
   process.exit(0);
