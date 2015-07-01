@@ -1,0 +1,51 @@
+doctype
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title=title
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='css/vendor.css')
+
+    style.
+      .logo{
+        max-width: 150px;
+        margin: 5px;
+        display: inline-block
+      }
+      ul.nostyle{ padding: 0; }
+      ul.nostyle li{ list-style: none; display: inline-block; vertical-align: middle }
+
+  body
+    div.jumbotron
+        div.container
+          h1 Boilerplate for mucking around
+          p Sometimes you just want to muck around without getting all fancy pants. 
+
+    div.container
+      h4 Meet my pals:
+      ul.nostyle
+        for person in people
+          li
+            img(class='thumbnail logo' alt=person.name title=person.name src=person.logo)
+
+
+      br
+      h4 Where things are:
+      ul
+        li
+          | In ./src/js you'll find one folder for client-side scripts that compiles es6 scripts into
+          | the ./public/js directory
+        li
+          | and another folder in ./src/js for server-side scripts that compiles es6 script
+          | into the ./app/scripts folder
+      br
+      h4 Get started
+      div
+        pre
+          | $ npm install
+          | $ gulp
+          | $ nodemon server.js
+
+    script(src='js/main.js')
