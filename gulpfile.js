@@ -9,11 +9,13 @@ var runSequence = Promise.promisify(require('run-sequence'));
 
 var exitOnError = false;
 
-function handleError(err) {
-  var displayErr = gutil.colors.red(err);
-  gutil.log(displayErr);
-  if (exitOnError) process.exit(1);
-}
+var allTasks = [
+  'clientscripts', 
+  'serverscripts', 
+  'vendorstyle', 
+  'copy', 
+  'spawn-watch'
+];
 
 gulp.task('vendorstyle', function() {
   return gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css')
@@ -38,17 +40,23 @@ gulp.task('clientscripts', function () {
 gulp.task('copy', function() {
   gulp.src('./node_modules/font-awesome/fonts/**/*.{ttf,woff,eof,svg}')
     .pipe(gulp.dest('./public/css/fonts'));
-  gulp.src('./node_modules/requirejs/require.js')
-    .pipe(gulp.dest('./public/js/vendor'));
-  gulp.src('./node_modules/underscore/underscore.js')
-    .pipe(gulp.dest('./public/js/vendor'));
-  gulp.src('./node_modules/jquery/dist/jquery.js')
-    .pipe(gulp.dest('./public/js/vendor'));
-  gulp.src('./node_modules/backbone/backbone.js')
-    .pipe(gulp.dest('./public/js/vendor'));
-   
-   
+
+  gulp.src([
+    './node_modules/requirejs/require.js',
+    './node_modules/underscore/underscore.js',
+    './node_modules/jquery/dist/jquery.js',
+    './node_modules/backbone/backbone.js'
+  ]).pipe(gulp.dest('./public/js/vendor'));
+
 });
+
+// Handle exceptions and keep
+// watching tasks if we hit one
+function handleError(err) {
+  var displayErr = gutil.colors.red(err);
+  gutil.log(displayErr);
+  if (exitOnError) process.exit(1);
+}
 
 gulp.task('kill-gulp', function() {
   process.exit(0);
@@ -60,7 +68,7 @@ gulp.task('clear-terminal', function() {
 })
 
 gulp.task('watch-build', function() {
-  return runSequence('clear-terminal', ['clientscripts', 'serverscripts']);
+  return runSequence('clear-terminal', allTasks);
 });
 
 gulp.task('watch', function () {
@@ -79,4 +87,5 @@ gulp.task('spawn-watch', ['clear-terminal'], function() {
   spawnWatch();
 })
 
-gulp.task('default', ['clientscripts', 'serverscripts', 'vendorstyle', 'copy', 'spawn-watch']);
+
+gulp.task('default', allTasks);
